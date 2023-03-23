@@ -115,6 +115,7 @@ int main() {
         } else {
             encrypt_word = input_text.substr(cnt * 8, 8);
         }
+        cout << "Text：" << encrypt_word << endl;
         des_encrypt(encrypt_word, des_key);
     }
 
@@ -129,6 +130,10 @@ string input_information() {
 
 key::key(string k0) {
     char2bit(bit_key, k0);
+
+    print("Hexadecimal key", bit_key);
+    cout << endl;
+
     //PC1置换
     transform(bit_key, bit_key, PC1_Table, 56);
     bool *l = &bit_key[0];
@@ -169,23 +174,36 @@ void shift_left(bool *input, int len) {
 void des_encrypt(string &text, key des_key) {
     bool text_bit[64];
     char2bit(text_bit, text);
+
+    print("Hexadecimal text", text_bit);
+
+    //IP置换
     transform(text_bit, text_bit, IP_Table, 64);
+
+    print("Initial permutation", text_bit);
+
     bool *xor1 = &text_bit[0];
     bool *xor2 = &text_bit[32];
-    for (auto &i: des_key.round_key) {
+    for (int i = 0; i < 16; i++) {
         bool temp[32];
         memcpy(temp, xor2, 32);
-        cipher_func(xor2, i);
+        cipher_func(xor2, des_key.round_key[i]);
         xor_bit(xor2, xor1, 32);
         memcpy(xor1, temp, 32);
+
+        cout << "Round " << i << ":";
+        show_in_hex(text_bit);
     }
     bool temp[32];
     memcpy(temp, xor2, 32);
     memcpy(xor2, xor1, 32);
     memcpy(xor1, temp, 32);
+
     //最终置换
     transform(text_bit, text_bit, IPR_Table, 64);
-    show_in_hex(text_bit);
+
+    print("Inverse initial permutation", text_bit);
+    cout << endl;
 }
 
 void cipher_func(bool *target, bool *key) {
@@ -226,8 +244,7 @@ void show_in_hex(const bool input[64]) {
     cout << endl;
 }
 
-//03c2e5e6178a5c6d
-//0e338e67110245c8
-//17d4364563a55619
-//54507e0e8227fab1
-//57e1ed654fdc8a1d
+void print(const string &name, bool input[64]) {
+    cout << name << ":";
+    show_in_hex(input);
+}

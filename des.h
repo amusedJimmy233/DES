@@ -26,6 +26,7 @@ void s_func(bool *output, const bool *input); //S盒置换加密
 void cipher_func(bool *target, bool *key);  //根据子密钥和部分明文进行S盒、P盒置换加密
 void xor_bit(bool *input1, const bool *input2, int len);  //异或运算，结果保留在第一个input参数中
 void show_in_hex(const bool input[64]);     //以十六进制展示
+void print(const string& name,bool input[64]);
 
 #endif //DES_DES_H
 
