@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/jimmy233/Desktop/c++/Information Security/DES/des.h
+string
+/Users/jimmy233/Desktop/c++/Information Security/DES/string
+iostream
+/Users/jimmy233/Desktop/c++/Information Security/DES/iostream
+
+/Users/jimmy233/Desktop/c++/Information Security/DES/main.cpp
+des.h
+/Users/jimmy233/Desktop/c++/Information Security/DES/des.h
+

@@ -2,10 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "DES.exe"
-		},
-		{
-			"path" : "DES.pdb"
+			"path" : "DES"
 		}
 	],
 	"backtrace" : 1,
@@ -38,7 +35,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g"
+					"fragment" : "-g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.0"
 				},
 				{
 					"fragment" : "-std=gnu++14"
@@ -71,16 +68,12 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
-			},
-			{
-				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
-				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "DES",
-	"nameOnDisk" : "DES.exe",
+	"nameOnDisk" : "DES",
 	"paths" : 
 	{
 		"build" : ".",
