@@ -1,4 +1,5 @@
 #include "des.h"
+#include "cmath"
 
 using namespace std;
 
@@ -97,16 +98,32 @@ int main() {
     string input_text = input_information();
     cout << "key:" << endl;
     string input_key = input_information();
+    if (input_key.size() > 8) {
+        cout << "the length of key must less than 8" << endl;
+        return 0;
+    }
 
+    //初始化密钥
     key des_key(input_key);
-    des_encrypt(input_text, des_key);
+
+    //加密
+    int encrypt_cnt = ceil(double(input_text.length()) / 8);
+    for (int cnt = 0; cnt < encrypt_cnt; cnt++) {
+        string encrypt_word;
+        if (cnt == encrypt_cnt) {
+            encrypt_word = input_text.substr(cnt * 8);
+        } else {
+            encrypt_word = input_text.substr(cnt * 8, 8);
+        }
+        des_encrypt(encrypt_word, des_key);
+    }
 
     return 0;
 }
 
 string input_information() {
     string word;
-    cin >> word;
+    getline(cin, word);
     return word;
 }
 
@@ -126,8 +143,11 @@ key::key(string k0) {
 
 void char2bit(bool *output, string &a) {
     string input = a;
-    for (int i = 0; i < 64; i++) {
+    for (unsigned int i = 0; i < a.length() * 8; i++) {
         output[i] = (input[i / 8] << (i % 8)) & 0x80;
+    }
+    for (unsigned int i = a.length() * 8; i < 64; i++) {
+        output[i] = false;
     }
 }
 
@@ -205,3 +225,9 @@ void show_in_hex(const bool input[64]) {
     }
     cout << endl;
 }
+
+//03c2e5e6178a5c6d
+//0e338e67110245c8
+//17d4364563a55619
+//54507e0e8227fab1
+//57e1ed654fdc8a1d
