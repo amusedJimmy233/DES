@@ -146,12 +146,11 @@ key::key(string k0) {
     }
 }
 
-void char2bit(bool *output, string &a) {
-    string input = a;
-    for (unsigned int i = 0; i < a.length() * 8; i++) {
+void char2bit(bool *output, string &input) {
+    for (unsigned int i = 0; i < input.length() * 8; i++) {
         output[i] = (input[i / 8] << (i % 8)) & 0x80;
     }
-    for (unsigned int i = a.length() * 8; i < 64; i++) {
+    for (unsigned int i = input.length() * 8; i < 64; i++) {
         output[i] = false;
     }
 }
